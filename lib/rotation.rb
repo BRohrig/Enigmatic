@@ -12,7 +12,7 @@ class Rotation
   end
 
   def spin(letter, shift)
-    letters[letters.find_index(letter) + shift]
+    letters[(letters.find_index(letter) + shift) % 27]
   end
 
   def create_spin_slots

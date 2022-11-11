@@ -18,6 +18,9 @@ RSpec.describe Rotation do
 
   it 'can find a new letter in the letters array based on a desired shift' do
     expect(rotation.spin("r", 7)).to eq("y")
+    expect(rotation.spin("z", 1)).to eq(" ")
+    expect(rotation.spin("z", 10)).to eq("i")
+
   end
 
   it 'can create a list of positions to spin for each key' do
