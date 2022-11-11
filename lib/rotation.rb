@@ -11,6 +11,10 @@ class Rotation
     letters.find_index(letter)
   end
 
+  def spin(letter, shift)
+    letters[letters.find_index(letter) + shift]
+  end
+
   def create_spin_slots
     { :one => spin_slots_1,
       :two => spin_slots_2,
@@ -19,35 +23,40 @@ class Rotation
   end
 
   def spin_slots_1
-    num_array =* 1..string.length
+    num_array =* 0..string.length - 1
     num_array.select do |number|
-      number == 1 || number % 4 == 1
+      number == 0 || number % 4 == 0
     end
   end
 
   def spin_slots_2
-    num_array =* 1..string.length
+    num_array =* 0..string.length - 1
+    num_array.select do |number|
+      number % 4 == 1
+    end
+  end
+
+  def spin_slots_3
+    num_array =* 0..string.length - 1
     num_array.select do |number|
       number % 4 == 2
     end
   end
 
-  def spin_slots_3
-    num_array =* 1..string.length
+  def spin_slots_4
+    num_array =* 0..string.length - 1
     num_array.select do |number|
       number % 4 == 3
     end
   end
 
-  def spin_slots_4
-    num_array =* 1..string.length
-    num_array.select do |number|
-      number % 4 == 0
-    end
-  end
-
   def first_spin(shift)
-    string.each.with_index
+    string.gsub()
+    
+        
+     
+      
+       
   end
 
 end
