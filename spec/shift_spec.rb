@@ -27,8 +27,8 @@ RSpec.describe Shift do
   end
 
   it 'has a method to create an offset' do
-    expect(shift.create_offset).to eq()
-
+    new_shift = Shift.new(Date.parse("2022-11-10"))
+    expect(new_shift.create_offset).to eq("8884")
   end
 
 end
