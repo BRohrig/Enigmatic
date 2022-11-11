@@ -23,8 +23,7 @@ class Rotation
   end
 
   def spin_slots(num)
-    num_array =* 0..string.length - 1
-    num_array.select do |number|
+    (0..string.length - 1).select do |number|
       number % 4 == num
     end
   end
