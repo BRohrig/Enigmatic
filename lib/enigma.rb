@@ -3,21 +3,13 @@ require './shift'
 
 
 class Enigma
-  attr_reader :message,
-              :shift
-
-  def initialize(input_hash)
-    @message  = input_hash[:message]
-    @shift    = Shift.new({:key => input_hash[:key], :date => input_hash[:date]}).find_shifts
+  def encrypt(message, key, date)
+    shift = Shift.new({:key => key, :date => date}).find_shifts
+    Rotation.new(message).encrypt(shift)
   end
 
-  def decrypt
-    rotation = Rotation.new(@message)
-    rotation.decrypt(@shift)
+  def decrypt(message, key, date)
+    shift = Shift.new({:key => key, :date => date}).find_shifts
+    Rotation.new(message).decrypt(shift)
   end
-
-  def encrypt
-    Rotation.new(@message).encrypt(@shift)
-  end
-
 end
