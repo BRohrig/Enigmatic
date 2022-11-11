@@ -5,8 +5,9 @@ RSpec.describe Shift do
   let(:shift) {Shift.new}
 
   it 'is a shift and has attributes' do
+    allow(shift).to receive(:key) {"54321"}
     expect(shift).to be_a(Shift)
-    expect(shift.key).to eq("")
+    expect(shift.key).to eq("54321")
   end
 
   it 'can have a key passed in' do
@@ -14,11 +15,10 @@ RSpec.describe Shift do
     expect(new_shift.key).to eq("12345")
   end
 
-  it 'can create a new key' do
-    shift.new_key
-    
+  it 'can have a random key generated if none passed' do
     expect(shift.key.length).to eq(5)
     expect(shift.key).to be_a(String)
+    expect(shift.key).to be_between("00000","99999").inclusive
   end
 
   it 'can break a five digit key into subkeys' do
