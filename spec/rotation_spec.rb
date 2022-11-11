@@ -31,16 +31,16 @@ RSpec.describe Rotation do
   end
 
   it 'can rotate the first, fifth, etc letters a specified number of spaces' do
-    rotation.encrypt(2,0,0,0)
+    rotation.encrypt({:A => 2, :B=> 0, :C=> 0, :D => 0})
     expect(rotation.string).to eq("k amba hcppybpurrle ouffkn bwnny")
 
-    rotation.encrypt(0,4,0,0)
+    rotation.encrypt({:A => 0, :B=> 4, :C=> 0, :D => 0})
     expect(rotation.string).to eq("kdambe hctpybturrpe oyffkr bwrny")
 
-    rotation.encrypt(0,0,1,0)
+    rotation.encrypt({:A => 0, :B=> 0, :C=> 1, :D => 0})
     expect(rotation.string).to eq("kdbmbeahctqybtvrrpf oygfkrabwroy")
 
-    rotation.encrypt(0,0,0,28)
+    rotation.encrypt({:A => 0, :B=> 0, :C=> 0, :D => 28})
     expect(rotation.string).to eq("kdbnbeaictqzbtvsrpfaoyggkracwroz")
   end
 
