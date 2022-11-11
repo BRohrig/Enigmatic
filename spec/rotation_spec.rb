@@ -11,13 +11,20 @@ RSpec.describe Rotation do
   end
 
   it 'can tell the array index position of each letter' do
-    expect(rotation.letters.index_pos("a")).to eq(0)
-    expect(rotation.letters.index_pos("r")).to eq(17)
-    expect(rotation.letters.index_pos(" ")).to eq(26)
+    expect(rotation.index_pos("a")).to eq(0)
+    expect(rotation.index_pos("r")).to eq(17)
+    expect(rotation.index_pos(" ")).to eq(26)
+  end
+
+  it 'can create a list of positions to spin for each key' do
+    expect(rotation.create_spin_slots).to eq({:one => [1,5,9,13,17,21,25,29],
+                                              :two => [2,6,10,14,18,22,26,30],
+                                              :three => [3,7,11,15,19,23,27,31],
+                                              :four => [4,8,12,16,20,24,28,32]})
   end
 
   xit 'can rotate the first, fifth, etc letters a specified number of spaces' do
-    expect(rotation.first_spin).to eq("")
+    expect(rotation.first_spin(2)).to eq("k amba harpy pxrplebmuffkn bupny")
   end
 
 end
