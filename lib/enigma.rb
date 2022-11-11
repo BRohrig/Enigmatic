@@ -16,4 +16,8 @@ class Enigma
     rotation.decrypt(@shift)
   end
 
+  def encrypt
+    Rotation.new(@message).encrypt(@shift)
+  end
+
 end
