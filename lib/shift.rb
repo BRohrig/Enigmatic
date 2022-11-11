@@ -5,7 +5,7 @@ class Shift
               :date
 
   def initialize(input = {})
-    @key = input[:key] || ""
+    @key  = input[:key] || new_key
     @date = input[:date] || Date.today.to_s
   end
 
@@ -14,12 +14,10 @@ class Shift
   end
 
   def create_offset
-    
     (Date.parse(date).strftime('%d%m%y').to_i ** 2).to_s[-4..-1]
   end
 
   def subkeys
-    
     { :a => key[0..1],
       :b => key[1..2],
       :c => key[2..3],

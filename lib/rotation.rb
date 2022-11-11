@@ -16,37 +16,16 @@ class Rotation
   end
 
   def create_spin_slots
-    { :one => spin_slots_1,
-      :two => spin_slots_2,
-      :three => spin_slots_3,
-      :four => spin_slots_4}
+    { :one    => spin_slots(0),
+      :two    => spin_slots(1),
+      :three  => spin_slots(2),
+      :four   => spin_slots(3)}
   end
 
-  def spin_slots_1
+  def spin_slots(num)
     num_array =* 0..string.length - 1
     num_array.select do |number|
-      number == 0 || number % 4 == 0
-    end
-  end
-
-  def spin_slots_2
-    num_array =* 0..string.length - 1
-    num_array.select do |number|
-      number % 4 == 1
-    end
-  end
-
-  def spin_slots_3
-    num_array =* 0..string.length - 1
-    num_array.select do |number|
-      number % 4 == 2
-    end
-  end
-
-  def spin_slots_4
-    num_array =* 0..string.length - 1
-    num_array.select do |number|
-      number % 4 == 3
+      number % 4 == num
     end
   end
 
@@ -65,26 +44,10 @@ class Rotation
   end
 
   def decrypt_shift(shift)
-    shift.each { |key,value| shift[key] = -value }
+    shift.each { |key, value| shift[key] = -value }
   end
 
   def decrypt(shifts)
-    d_shift = decrypt_shift(shifts)
-    string.each_char.with_index do |char, i|
-      if create_spin_slots[:one].include?(i)
-        string[i] = spin(char, d_shift[:A])
-      elsif create_spin_slots[:two].include?(i)
-        string[i] = spin(char, d_shift[:B])
-      elsif create_spin_slots[:three].include?(i)
-        string[i] = spin(char, d_shift[:C])
-      elsif create_spin_slots[:four].include?(i)
-        string[i] = spin(char, d_shift[:D])
-      end
-    end
-
+    encrypt(decrypt_shift(shifts))
   end
-
-
-  
-
 end
