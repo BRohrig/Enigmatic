@@ -51,7 +51,13 @@ class Rotation
   end
 
   def first_spin(shift)
-    string.gsub()
+    string.each_char.with_index do |char, i|
+      
+      if create_spin_slots[:one].include?(i)
+        
+        string[i] = spin(char, shift)
+      end
+    end
     
         
      

@@ -24,14 +24,15 @@ RSpec.describe Rotation do
   end
 
   it 'can create a list of positions to spin for each key' do
-    expect(rotation.create_spin_slots).to eq({:one => [0,4,8,12,16,20,24,28],
-                                              :two => [1,5,9,13,17,21,25,29],
+    expect(rotation.create_spin_slots).to eq({:one =>   [0,4,8,12,16,20,24,28],
+                                              :two =>   [1,5,9,13,17,21,25,29],
                                               :three => [2,6,10,14,18,22,26,30],
-                                              :four => [3,7,11,15,19,23,27,31]})
+                                              :four =>  [3,7,11,15,19,23,27,31]})
   end
 
-  xit 'can rotate the first, fifth, etc letters a specified number of spaces' do
-    expect(rotation.first_spin(2)).to eq("k amba harpy pxrplebmuffkn bupny")
+  it 'can rotate the first, fifth, etc letters a specified number of spaces' do
+    rotation.first_spin(2)
+    expect(rotation.string).to eq("k amba hcppybpurrle ouffkn bwnny")
   end
 
 end
