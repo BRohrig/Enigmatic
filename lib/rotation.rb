@@ -50,12 +50,16 @@ class Rotation
     end
   end
 
-  def first_spin(shift)
+  def encrypt(shift, shift_two, shift_three, shift_four)
     string.each_char.with_index do |char, i|
-      
       if create_spin_slots[:one].include?(i)
-        
         string[i] = spin(char, shift)
+      elsif create_spin_slots[:two].include?(i)
+        string[i] = spin(char, shift_two)
+      elsif create_spin_slots[:three].include?(i)
+        string[i] = spin(char, shift_three)
+      elsif create_spin_slots[:four].include?(i)
+        string[i] = spin(char, shift_four)
       end
     end
     
