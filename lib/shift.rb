@@ -25,4 +25,11 @@ class Shift
       :c => key[2..3],
       :d => key[3..4]}
   end
+
+  def find_shifts
+    { :A => subkeys[:a].to_i + create_offset[0].to_i,
+      :B => subkeys[:b].to_i + create_offset[1].to_i,
+      :C => subkeys[:c].to_i + create_offset[2].to_i,
+      :D => subkeys[:d].to_i + create_offset[3].to_i,}
+  end
 end

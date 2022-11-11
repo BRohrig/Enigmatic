@@ -55,5 +55,4 @@ RSpec.describe Shift do
                                           :C => 42,
                                           :D => 49})
   end
-
 end
