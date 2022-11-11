@@ -31,7 +31,7 @@ RSpec.describe Shift do
   end
 
   it 'has a date attribute that is either an argument or defaults to today' do
-    expect(shift.date).to eq(Date.today)
+    expect(shift.date).to eq(Date.today.to_s)
     
     new_shift = Shift.new({:date => Date.parse("2005-06-25"), :key => "12349"})
     allow(new_shift).to receive(:date) {"2005-06-25"}
@@ -40,13 +40,13 @@ RSpec.describe Shift do
   end
 
   it 'has a method to create an offset' do
-    new_shift = Shift.new({:key => "45839", :date => Date.parse("2022-11-10")})
+    new_shift = Shift.new({:key => "45839", :date => "2022-11-10"})
 
     expect(new_shift.create_offset).to eq("8884")
   end
 
   it 'has a method to combine key and offset to get shift' do
-    new_shift = Shift.new({:key => "12345", :date => Date.parse("2022-11-10")})
+    new_shift = Shift.new({:key => "12345", :date => "2022-11-10"})
 
     expect(new_shift.find_shifts).to eq({ :A => 20,
                                           :B => 31,
