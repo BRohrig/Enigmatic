@@ -68,6 +68,23 @@ class Rotation
     shift.each { |key,value| shift[key] = -value }
   end
 
+  def decrypt(shifts)
+    d_shift = decrypt_shift(shifts)
+    string.each_char.with_index do |char, i|
+      if create_spin_slots[:one].include?(i)
+        string[i] = spin(char, d_shift[:A])
+      elsif create_spin_slots[:two].include?(i)
+        string[i] = spin(char, d_shift[:B])
+      elsif create_spin_slots[:three].include?(i)
+        string[i] = spin(char, d_shift[:C])
+      elsif create_spin_slots[:four].include?(i)
+        string[i] = spin(char, d_shift[:D])
+      end
+    end
+
+  end
+
+
   
 
 end
