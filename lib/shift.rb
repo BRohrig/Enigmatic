@@ -18,4 +18,11 @@ class Shift
   def create_offset
     (date.strftime('%d%m%y').to_i ** 2).to_s[-4..-1]
   end
+
+  def subkeys
+    { :a => key[0..1],
+      :b => key[1..2],
+      :c => key[2..3],
+      :d => key[3..4]}
+  end
 end
