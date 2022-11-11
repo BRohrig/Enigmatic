@@ -23,16 +23,25 @@ RSpec.describe Shift do
     expect(shift.key).to be_a(String)
   end
 
+  it 'can break a five digit key into subkeys' do
+    new_shift = Shift.new({:key => "12345"})
+    expect(new_shift.subkeys).to eq({ :a => "12",
+                                      :b => "23",
+                                      :c => "34",
+                                      :d => "45"
+                                    })
+  end
+
   it 'has a date attribute that is either an argument or defaults to today' do
     expect(shift.date).to eq(Date.today)
     
-    new_shift = Shift.new({:date => Date.parse("2005-06-25")})
+    new_shift = Shift.new({:date => Date.parse("2005-06-25"), :key => "12349"})
     allow(new_shift).to receive(:date) {"2005-06-25"}
     expect(new_shift.date).to eq("2005-06-25")
   end
 
   it 'has a method to create an offset' do
-    new_shift = Shift.new({:date => Date.parse("2022-11-10")})
+    new_shift = Shift.new({:key => "45839", :date => Date.parse("2022-11-10")})
     expect(new_shift.create_offset).to eq("8884")
   end
 
