@@ -5,10 +5,10 @@ class Shift
               :key,
               :date
 
-  def initialize(date = Date.today)
+  def initialize(input = {})
     @alphabet = ("a".."z").to_a << " "
-    @key = ""
-    @date = date
+    @key = input[:key] || ""
+    @date = input[:date] || Date.today
   end
 
   def new_key
