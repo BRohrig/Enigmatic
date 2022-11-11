@@ -1,12 +1,10 @@
 require 'date'
 
 class Shift 
-  attr_reader :alphabet, 
-              :key,
+  attr_reader :key,
               :date
 
   def initialize(input = {})
-    @alphabet = ("a".."z").to_a << " "
     @key = input[:key] || ""
     @date = input[:date] || Date.today
   end

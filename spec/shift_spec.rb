@@ -3,11 +3,9 @@ require 'date'
 
 RSpec.describe Shift do
   let(:shift) {Shift.new}
-  let(:letters) {("a".."z").to_a << " "}
 
   it 'is a shift and has attributes' do
     expect(shift).to be_a(Shift)
-    expect(shift.alphabet).to eq(letters)
     expect(shift.key).to eq("")
   end
 
