@@ -46,8 +46,16 @@ RSpec.describe Rotation do
 
   it 'can take the shifts and make them negative for decryption' do
     shifty = {:A => 4, :B => 37, :C => 94, :D => 0}
-    rotation.decrypt_shift
+    rotation.decrypt_shift(shifty)
     expect(shifty).to eq(:A => -4, :B => -37, :C => -94, :D => -0)
+  end
+
+  it 'can decrypt a message given the shifts' do
+    rotation.encrypt({:A => 2, :B=> 4, :C=> 1, :D => 28})
+    expect(rotation.string).to eq("kdbnbeaictqzbtvsrpfaoyggkracwroz")
+
+    rotation.decrypt({:A => 2, :B=> 4, :C=> 1, :D => 28})
+    expect(rotation.string).to eq("i am a happy purple muffin bunny")
   end
 
 end

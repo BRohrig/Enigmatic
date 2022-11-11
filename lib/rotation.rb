@@ -64,7 +64,9 @@ class Rotation
     end
   end
 
-  
+  def decrypt_shift(shift)
+    shift.each { |key,value| shift[key] = -value }
+  end
 
   
 
