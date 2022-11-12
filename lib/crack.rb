@@ -18,4 +18,8 @@ class Crack < Enigma
     :d => -(create_offset[3].to_i)}
   end
 
+  def find_last_four(message)
+
+  end
+
 end

@@ -19,4 +19,8 @@ RSpec.describe Crack do
                                         :d => -4})
   end
 
+  it 'can find the last four characters of a message' do
+    expect(crack.find_last_four("this is the end")).to eq(" end")
+  end
+
 end
