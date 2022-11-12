@@ -1,11 +1,5 @@
-require_relative './lib/enigma'
+require_relative './lib/encrypter'
 
-message = File.open(ARGV[0], "r").read
-
-enigma = Enigma.new
-
-encrypted = enigma.decrypt_message(message, ARGV[2], ARGV[3])
-
-File.open(ARGV[1], "w").write(encrypted)
-
-puts "Created #{ARGV[1]} with the key #{enigma.key} and date #{enigma.date}"
+crypto = CryptoFile.new("decrypt")
+crypto.write_it
+puts "Created #{ARGV[1]} with the key #{crypto.enigma.key} and date #{crypto.enigma.date}"
