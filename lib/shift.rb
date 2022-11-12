@@ -6,7 +6,7 @@ class Shift
 
   def initialize(input = {})
     @key  = input[:key] || new_key
-    @date = input[:date] || Date.today.to_s
+    @date = Date.today.to_s || input[:date].to_s
   end
 
   def new_key
