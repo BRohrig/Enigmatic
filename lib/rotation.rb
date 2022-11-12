@@ -30,13 +30,13 @@ class Rotation
 
   def encrypt(shifts)
     string.each_char.with_index do |char, i|
-      if create_spin_slots[:one].include?(i)
+      if create_spin_slots[:one].include?(i) && letters.include?(char)
         string[i] = spin(char, shifts[:A])
-      elsif create_spin_slots[:two].include?(i)
+      elsif create_spin_slots[:two].include?(i) && letters.include?(char)
         string[i] = spin(char, shifts[:B])
-      elsif create_spin_slots[:three].include?(i)
+      elsif create_spin_slots[:three].include?(i) && letters.include?(char)
         string[i] = spin(char, shifts[:C])
-      elsif create_spin_slots[:four].include?(i)
+      elsif create_spin_slots[:four].include?(i) && letters.include?(char)
         string[i] = spin(char, shifts[:D])
       end
     end
