@@ -19,7 +19,7 @@ class Crack < Enigma
   end
 
   def find_last_four(message)
-
+    message[-4..-1]
   end
 
 end
