@@ -15,6 +15,4 @@ RSpec.describe Enigma do
   it 'can decrypt a message' do
     expect(enigma.decrypt("bdphteocutdtttimiptvfyuabroxnrbt", "12345", "11-Nov-2022")).to eq("{ \n      decryption: => i am a happy purple muffin bunny,\n      key:        => 12345,\n      date:       => 111122\n    }")
   end
-
-
 end
