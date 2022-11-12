@@ -1,13 +1,6 @@
 require 'date'
 
-class Shift 
-  attr_reader :key,
-              :date
-
-  def initialize(input = {})
-    @key  = input[:key] || new_key
-    @date = Date.today.to_s || input[:date].to_s
-  end
+module Shift 
 
   def new_key
     @key = 5.times.map{rand(10)}.join.to_s
