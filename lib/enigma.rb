@@ -2,43 +2,40 @@ require_relative './rotation'
 require_relative './shift'
 
 class Enigma
+  include Shift
   attr_reader :date, :key, :new_message
 
-  def encrypt(message, key = Shift.new.new_key, date = Date.today)
-    @key = key
-    @date = date
-    shift = Shift.new({:key => key, :date => date})
-    new_message = Rotation.new(message).encrypt(shift.find_shifts)
+  def encrypt(message, key = new_key, date = Date.today.to_s)
+    @key = key 
+    @date = date.to_s
+    new_message = encrypt_message(message, @key, @date)
     "{ 
       encryption: => #{new_message},
       key:        => #{key},
-      date:       => #{Date.parse(shift.date).strftime('%d%m%y')}
+      date:       => #{Date.parse(date).strftime('%d%m%y')}
     }"
   end
 
-  def encrypt_message(message, key = Shift.new.new_key, date = Date.today)
+  def encrypt_message(message, key = new_key, date = Date.today.to_s)
     @key = key
-    @date = date
-    shift = Shift.new({:key => key, :date => date})
-    Rotation.new(message).encrypt(shift.find_shifts)
+    @date = date.to_s
+    Rotation.new(message).encrypt(find_shifts)
   end
 
-  def decrypt(message, key, date)
-    @key = key || Shift.new({:key => new_key})
-    @date = date || Date.today
-    shift = Shift.new({:key => key, :date => date})
-    new_message = Rotation.new(message).decrypt(shift.find_shifts)
+  def decrypt(message, key = new_key, date = Date.today.to_s)
+    @key = key
+    @date = date.to_s
+    new_message = decrypt_message(message, @key, @date)
     "{ 
       decryption: => #{new_message},
       key:        => #{key},
-      date:       => #{Date.parse(shift.date).strftime('%d%m%y')}
+      date:       => #{Date.parse(date).strftime('%d%m%y')}
     }"
   end
 
-  def decrypt_message(message, key = Shift.new.new_key, date = Date.today)
+  def decrypt_message(message, key = new_key, date = Date.today.to_s)
     @key = key
-    @date = date
-    shift = Shift.new({:key => key, :date => date})
-    Rotation.new(message).decrypt(shift.find_shifts)
+    @date = date.to_s
+    Rotation.new(message).decrypt(find_shifts)
   end
 end
