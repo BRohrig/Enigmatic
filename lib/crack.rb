@@ -7,8 +7,10 @@ class Crack < Enigma
 
   attr_reader :date
 
-  def initialize(date = Date.today)
-    @date = date.to_s
+  def initialize(message, date = Date.today)
+    @message  = message
+    @date     = date.to_s
+    @letters  = ("a".."z").to_a << " "
   end
 
   def reverse_offsets
@@ -18,8 +20,20 @@ class Crack < Enigma
     :d => -(create_offset[3].to_i)}
   end
 
-  def find_last_four(message)
-    message[-4..-1]
+  def find_last_four
+    @message[-4..-1]
   end
+
+  def index_pos(letter)
+    @letters.find_index(letter)
+  end
+
+  def find_last_indexes
+    find_last_four.each_char.map do |char|
+      index_pos(char)
+    end
+  end
+
+  
 
 end
