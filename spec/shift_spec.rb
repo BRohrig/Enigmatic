@@ -39,9 +39,9 @@ RSpec.describe Shift do
 
   it 'has a method to combine key and offset to get shift' do
     enigma.encrypt("I am the cheeseman", "12345", "2022-11-10")
-    expect(enigma.find_shifts).to eq({ :A => 20,
-                                          :B => 31,
-                                          :C => 42,
-                                          :D => 49})
+    expect(enigma.find_shifts).to eq({  :A => 20,
+                                        :B => 31,
+                                        :C => 42,
+                                        :D => 49})
   end
 end
