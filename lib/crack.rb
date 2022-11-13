@@ -34,6 +34,14 @@ class Crack < Enigma
     end
   end
 
-  
+  def find_raw_shifts
+    find_last_indexes.each_with_index.flat_map do |num, i|
+      [26, 4, 13, 3].each_with_index.flat_map do |num2, i2|
+        (num - num2) % 27 if i == i2
+      end
+    end.compact
+  end
+
+
 
 end
