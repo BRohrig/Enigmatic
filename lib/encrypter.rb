@@ -1,4 +1,5 @@
 require_relative './enigma'
+require_relative './crack'
 
 class CryptoFile
   attr_reader :enigma
@@ -6,6 +7,7 @@ class CryptoFile
   def initialize(argument)
     @argument = argument
     @enigma = Enigma.new
+    @cracker = Crack.new(read_it)
   end
 
   def read_it
@@ -26,5 +28,9 @@ class CryptoFile
     elsif @argument == "encrypt"
       File.open(ARGV[1], "w").write(encrypt_it) 
     end
+  end
+
+  def crack_it
+
   end
 end
