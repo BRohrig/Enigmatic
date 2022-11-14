@@ -1,16 +1,18 @@
-require_relative './enigma'
-require_relative './shift'
 
+module Crack
 
-class Crack < Enigma
-  include Shift
-
-  attr_reader :date
-
-  def initialize(message, date = Date.today)
+  def crack(message, date = Date.today.to_s)
     @message  = message
     @date     = date.to_s
     @letters  = ("a".."z").to_a << " "
+    decrypt(message, figure_out_key, @date)
+  end
+
+  def cli_crack(message, date = Date.today.to_s)
+    @message  = message
+    @date     = date.to_s
+    @letters  = ("a".."z").to_a << " "
+    decrypt_message(message, figure_out_key, @date)
   end
 
   def find_last_four
@@ -162,13 +164,8 @@ class Crack < Enigma
     end.reject { |val| val > 99 }
   end
 
-  def figure_out_key
-    key = [find_a_key, find_b_key, find_c_key, find_d_key]
-    key.reduce([]) { |num, key| num | key.split }.join(' ').delete(" ").squeeze
-  end
-
   def find_a_key
-    stringify_them("a").find do |string|
+    stringify_them("a").find_all do |string|
       stringify_them("b").find do |string2|
         string[1] == string2[0]
       end
@@ -177,19 +174,37 @@ class Crack < Enigma
 
   def find_b_key
     stringify_them("b").find do |string3|
-      find_a_key[1] == string3[0]
+      if find_a_key.class == Array
+        find_a_key.find do |key|
+          key[1] == string3[0]
+        end
+      else
+        find_a_key[1] == string3[0]
+      end
     end
   end
 
   def find_c_key
     stringify_them("c").find do |string4|
-      find_b_key[1] == string4[0]
+      if find_b_key.class == Array
+        find_b_key.find do |key|
+          key[1] == string4[0]
+        end
+      else
+        find_b_key[1] == string4[0]
+      end
     end
   end
 
   def find_d_key
     stringify_them("d").find do |string5|
-      find_c_key[1] == string5[0]
+      if find_c_key.class == Array
+        find_c_key.find do |key|
+          key[1] == string5[0]
+        end
+      else
+        find_c_key[1] == string5[0]
+      end
     end
   end
 
@@ -210,6 +225,35 @@ class Crack < Enigma
       find_d_subkey.map do |num|
         num.to_s.rjust(2, "0")
       end
+    end
+  end
+
+  def figure_out_key
+    key = [find_right_a_key.chop, find_right_b_key.chop, find_right_c_key.chop, find_right_d_key]
+    key.reduce([]) { |num, keys| num | keys.split }.join(' ').delete(" ")
+  end
+
+  def find_right_a_key
+    [find_a_key].flatten.find do |key|
+      key[1] == find_b_key[0]
+    end
+  end
+
+  def find_right_b_key
+    [find_b_key].flatten.find do |key|
+      key[0] == find_right_a_key[1]
+    end
+  end
+
+  def find_right_c_key
+    [find_c_key].flatten.find do |key|
+      key[0] == find_right_b_key[1]
+    end
+  end
+
+  def find_right_d_key
+    [find_d_key].flatten.find do |key|
+      key[0] == find_right_c_key[1]
     end
   end
 
