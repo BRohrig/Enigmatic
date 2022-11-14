@@ -7,7 +7,7 @@ module Shift
   end
 
   def create_offset
-    (Date.parse(date).strftime('%d%m%y').to_i ** 2).to_s[-4..-1]
+    (Date.parse(@date).strftime('%d%m%y').to_i ** 2).to_s[-4..-1]
   end
 
   def subkeys
