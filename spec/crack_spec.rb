@@ -44,6 +44,25 @@ RSpec.describe Crack do
     expect(enigma.find_d_subkey).to eq([1, 28, 55, 82])
   end
 
+  it 'can find the shift positions for dif length messages' do
+    enigma.crack("guuvbrwzv cjvx z!iqvyijygigvwibvfjg?bnwk", "2022-11-14")
+    expect(enigma.find_a_shift_position).to eq(-4)
+    expect(enigma.find_b_shift_position).to eq(-3)
+    expect(enigma.find_c_shift_position).to eq(-2)
+    expect(enigma.find_d_shift_position).to eq(-1)
+    enigma.crack("hrsketwdn gdkxw!wnsgwgvpwdsewzsoxd?kath", "2022-11-14")
+    expect(enigma.find_a_shift_position).to eq(-3)
+    expect(enigma.find_b_shift_position).to eq(-2)
+    expect(enigma.find_c_shift_position).to eq(-1)
+    expect(enigma.find_d_shift_position).to eq(-4)
+    enigma.crack("rzettcyb nyzxc!knzakgbjkdzzkzzild?epto", "2022-11-14")
+    expect(enigma.find_a_shift_position).to eq(-2)
+    expect(enigma.find_b_shift_position).to eq(-1)
+    expect(enigma.find_c_shift_position).to eq(-4)
+    expect(enigma.find_d_shift_position).to eq(-3)
+
+  end
+
   it 'can turn the possible keys into strings and rjust them' do
     enigma.crack("ipyqpkvstddzddawt!mmpgmfspmcpemyponc?krse", "2022-11-12")
     expect(enigma.stringify_them("a")).to eq(["20", "47", "74"])
@@ -58,7 +77,12 @@ RSpec.describe Crack do
   end
 
   it 'can decrypt a message with no key provided' do
-    expect(enigma.crack("ipyqpkvstddzddawt!mmpgmfspmcpemyponc?krse", "2022-11-12")).to eq({:decryption => "hello instructors! how are you today? end", :key => "20328", :date => "121122"})
+    # expect(enigma.crack("ipyqpkvstddzddawt!mmpgmfspmcpemyponc?krse", "2022-11-12")).to eq({:decryption => "hello instructors! how are you today? end", :key => "20328", :date => "121122"})
+    expect(enigma.crack("guuvbrwzv cjvx z!iqvyijygigvwibvfjg?bnwk", "2022-11-14")).to eq({:decryption => "ello instructors! how are you today? end", :key => "75557", :date => "141122"})
+  end
+
+  it 'can give the output desired for the CLI method' do
+    expect(enigma.cli_crack("ipyqpkvstddzddawt!mmpgmfspmcpemyponc?krse", "2022-11-12")).to eq("hello instructors! how are you today? end")
   end
 
 end
