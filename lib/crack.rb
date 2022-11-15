@@ -230,7 +230,7 @@ module Crack
 
   def figure_out_key
     key = [find_right_a_key.chop, find_right_b_key.chop, find_right_c_key.chop, find_right_d_key]
-    key.reduce([]) { |num, keys| num | keys.split }.join(' ').delete(" ")
+    key.join(" ").delete(" ")
   end
 
   def find_right_a_key
@@ -256,5 +256,4 @@ module Crack
       key[0] == find_right_c_key[1]
     end
   end
-
 end
