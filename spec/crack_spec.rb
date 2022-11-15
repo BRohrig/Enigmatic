@@ -72,8 +72,8 @@ RSpec.describe Crack do
   end
 
   it 'can decrypt a message with no key provided' do
-    # expect(enigma.crack("ipyqpkvstddzddawt!mmpgmfspmcpemyponc?krse", "2022-11-12")).to eq({:decryption => "hello instructors! how are you today? end", :key => "20328", :date => "121122"})
-    expect(enigma.crack("guuvbrwzv cjvx z!iqvyijygigvwibvfjg?bnwk", "2022-11-14")).to eq({:decryption => "ello instructors! how are you today? end", :key => "75557", :date => "141122"})
+    
+    expect(enigma.crack("guuvbrwzv cjvx z!iqvyijygigvwibvfjg?bnwk", "2022-11-14")).to eq({:decryption => "ello instructors! how are you today? end", :key => "48284", :date => "141122"})
   end
 
   it 'can give the output desired for the CLI method' do
