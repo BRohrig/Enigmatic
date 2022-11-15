@@ -5,18 +5,13 @@ RSpec.describe Crack do
   # let(:crack) {Crack.new("crack is whack end", "2022-11-10")}
   let(:enigma) {Enigma.new}
 
-  it 'exists and is a subclass of enigma, and has the shift module loaded' do
+  it 'exists and is a module of enigma, and has the shift module loaded' do
     enigma.crack("ipyqpkvstddzddawt!mmpgmfspmcpemyponc?krse", "2022-11-12")
     expect(enigma.class.included_modules).to include(Crack)
     expect(enigma.date).to eq("2022-11-12")
     enigma2 = Enigma.new
     enigma2.crack("ipyqpkvstddzddawt!mmpgmfspmcpemyponc?krse")
     expect(enigma2.date).to eq(Date.today.to_s)
-  end
-
-  it 'can find the last four characters of a message' do
-    enigma.crack("ipyqpkvstddzddawt!mmpgmfspmcpemyponc?krse", "2022-11-12")
-    expect(enigma.find_last_four).to eq("krse")
   end
 
   it 'can find the a shift' do
@@ -26,22 +21,22 @@ RSpec.describe Crack do
 
   it 'can find all possible options for the a subkey' do
     enigma.crack("ipyqpkvstddzddawt!mmpgmfspmcpemyponc?krse", "2022-11-12")
-    expect(enigma.find_a_subkey).to eq([20, 47, 74])
+    expect(enigma.find_a_subkeys).to eq([20, 47, 74])
   end
 
   it 'can find all possible options for the b subkey' do
     enigma.crack("ipyqpkvstddzddawt!mmpgmfspmcpemyponc?krse", "2022-11-12")
-    expect(enigma.find_b_subkey).to eq([3, 30, 57, 84])
+    expect(enigma.find_b_subkeys).to eq([3, 30, 57, 84])
   end
 
   it 'can find all possible options for the c subkey' do
     enigma.crack("ipyqpkvstddzddawt!mmpgmfspmcpemyponc?krse", "2022-11-12")
-    expect(enigma.find_c_subkey).to eq([5, 32, 59, 86])
+    expect(enigma.find_c_subkeys).to eq([5, 32, 59, 86])
   end
 
   it 'can find all possible options for the d subkey' do
     enigma.crack("ipyqpkvstddzddawt!mmpgmfspmcpemyponc?krse", "2022-11-12")
-    expect(enigma.find_d_subkey).to eq([1, 28, 55, 82])
+    expect(enigma.find_d_subkeys).to eq([1, 28, 55, 82])
   end
 
   it 'can find the shift positions for dif length messages' do

@@ -1,6 +1,4 @@
-
 module Crack
-
   def crack(message, date = Date.today.to_s)
     @message  = message
     @date     = date.to_s
@@ -13,10 +11,6 @@ module Crack
     @date     = date.to_s
     @letters  = ("a".."z").to_a << " "
     decrypt_message(message, figure_out_key, @date)
-  end
-
-  def find_last_four
-    @message[-4..-1]
   end
 
   def find_space_key_position
@@ -132,7 +126,7 @@ module Crack
   end
     
 
-  def find_a_subkey
+  def find_a_subkeys
     multiple = (find_a_shift-(create_offset[0].to_i)) % 27
     x = [0, 0, 0, 0]
     x.each_with_index.map do |subkey, i|
@@ -140,7 +134,7 @@ module Crack
     end.reject { |val| val > 99 }
   end
 
-  def find_b_subkey
+  def find_b_subkeys
     multiple = (find_b_shift-(create_offset[1].to_i)) % 27
     x = [0, 0, 0, 0]
     x.each_with_index.map do |subkey, i|
@@ -148,7 +142,7 @@ module Crack
     end.reject { |val| val > 99 }
   end
 
-  def find_c_subkey
+  def find_c_subkeys
     multiple = (find_c_shift-(create_offset[2].to_i)) % 27
     x = [0, 0, 0, 0]
     x.each_with_index.map do |subkey, i|
@@ -156,7 +150,7 @@ module Crack
     end.reject { |val| val > 99 }
   end
 
-  def find_d_subkey
+  def find_d_subkeys
     multiple = (find_d_shift-(create_offset[3].to_i)) % 27
     x = [0, 0, 0, 0]
     x.each_with_index.map do |subkey, i|
@@ -173,9 +167,9 @@ module Crack
   end
 
   def find_b_key
-    stringify_them("b").find do |string3|
+    stringify_them("b").find_all do |string3|
       if find_a_key.class == Array
-        find_a_key.find do |key|
+        find_a_key.find_all do |key|
           key[1] == string3[0]
         end
       else
@@ -185,9 +179,9 @@ module Crack
   end
 
   def find_c_key
-    stringify_them("c").find do |string4|
+    stringify_them("c").find_all do |string4|
       if find_b_key.class == Array
-        find_b_key.find do |key|
+        find_b_key.find_all do |key|
           key[1] == string4[0]
         end
       else
@@ -210,50 +204,72 @@ module Crack
 
   def stringify_them(arg)
     if arg == "a"
-      find_a_subkey.map do |num|
+      find_a_subkeys.map do |num|
         num.to_s.rjust(2, "0")
       end
     elsif arg == "b"
-      find_b_subkey.map do |num|
+      find_b_subkeys.map do |num|
         num.to_s.rjust(2, "0")
       end
     elsif arg == "c"
-      find_c_subkey.map do |num|
+      find_c_subkeys.map do |num|
         num.to_s.rjust(2, "0")
       end
     elsif arg == "d"
-      find_d_subkey.map do |num|
+      find_d_subkeys.map do |num|
         num.to_s.rjust(2, "0")
       end
     end
   end
 
   def figure_out_key
-    key = [find_right_a_key.chop, find_right_b_key.chop, find_right_c_key.chop, find_right_d_key]
+    if find_right_a_key_left == nil || find_right_b_key_left == nil || find_right_c_key_left == nil || find_right_d_key_left == nil
+      key = [find_right_a_key_right.chop, find_right_b_key_right.chop, find_right_c_key_right.chop, find_d_key]
+    else
+      key = [find_right_a_key_left.chop, find_right_b_key_left.chop, find_right_c_key_left.chop, find_right_d_key_left] 
+    end
     key.join(" ").delete(" ")
   end
 
-  def find_right_a_key
+  def find_right_a_key_left
     [find_a_key].flatten.find do |key|
       key[1] == find_b_key[0]
     end
   end
 
-  def find_right_b_key
+  def find_right_b_key_left
     [find_b_key].flatten.find do |key|
-      key[0] == find_right_a_key[1]
+      key[0] == find_right_a_key_left[1]
     end
   end
 
-  def find_right_c_key
+  def find_right_c_key_left
     [find_c_key].flatten.find do |key|
-      key[0] == find_right_b_key[1]
+      key[0] == find_right_b_key_left[1]
     end
   end
 
-  def find_right_d_key
+  def find_right_d_key_left
     [find_d_key].flatten.find do |key|
-      key[0] == find_right_c_key[1]
+      key[0] == find_right_c_key_left[1]
+    end
+  end
+
+  def find_right_c_key_right
+    [find_c_key].flatten.find do |key|
+      key[1] == find_d_key[0]
+    end
+  end
+
+  def find_right_b_key_right
+    [find_b_key].flatten.find do |key|
+      key[1] == find_right_c_key_right[0]
+    end
+  end
+
+  def find_right_a_key_right
+    [find_a_key].flatten.find do |key|
+      key[1] == find_right_b_key_right[0]
     end
   end
 end
