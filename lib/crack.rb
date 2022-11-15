@@ -191,7 +191,7 @@ module Crack
   end
 
   def find_d_key
-    stringify_them("d").find do |string5|
+    stringify_them("d").find_all do |string5|
       if find_c_key.class == Array
         find_c_key.find do |key|
           key[1] == string5[0]
@@ -223,7 +223,7 @@ module Crack
   end
 
   def figure_out_key
-    if find_right_a_key_left == nil || find_right_b_key_left == nil || find_right_c_key_left == nil || find_right_d_key_left == nil
+    if find_right_b_key_left == nil || find_right_c_key_left == nil || find_right_d_key_left == nil
       key = [find_right_a_key_right.chop, find_right_b_key_right.chop, find_right_c_key_right.chop, find_d_key]
     else
       key = [find_right_a_key_left.chop, find_right_b_key_left.chop, find_right_c_key_left.chop, find_right_d_key_left] 
@@ -233,13 +233,13 @@ module Crack
 
   def find_right_a_key_left
     [find_a_key].flatten.find do |key|
-      key[1] == find_b_key[0]
+      key[1] == find_right_b_key_left[0]
     end
   end
 
   def find_right_b_key_left
     [find_b_key].flatten.find do |key|
-      key[0] == find_right_a_key_left[1]
+      key[0] == find_a_key.join("")[1]
     end
   end
 
@@ -252,6 +252,12 @@ module Crack
   def find_right_d_key_left
     [find_d_key].flatten.find do |key|
       key[0] == find_right_c_key_left[1]
+    end
+  end
+
+  def find_right_d_key_right
+    [find_d_key].flatten.find do |key|
+      key[0] == find_right_c_key_right[1]
     end
   end
 
