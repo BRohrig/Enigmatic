@@ -72,7 +72,7 @@ RSpec.describe Crack do
   end
 
   it 'can decrypt a message with no key provided' do
-    
+    expect(enigma.crack("szrqllifqbqa yczuvh!ltcnazoastbrlqrdldkrlolesevfuyjmozqqudlazloeltqmyicpclfxlxrqfwhm=(crzo", "2022-11-15")).to eq({:decryption => "good afternoon mike! i apologize for the disgusting conditionals in my crack module =( end", :key => "58490", :date => "151122"})
     expect(enigma.crack("guuvbrwzv cjvx z!iqvyijygigvwibvfjg?bnwk", "2022-11-14")).to eq({:decryption => "ello instructors! how are you today? end", :key => "48284", :date => "141122"})
   end
 
