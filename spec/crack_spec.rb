@@ -5,18 +5,13 @@ RSpec.describe Crack do
   # let(:crack) {Crack.new("crack is whack end", "2022-11-10")}
   let(:enigma) {Enigma.new}
 
-  it 'exists and is a subclass of enigma, and has the shift module loaded' do
+  it 'exists and is a module of enigma, and has the shift module loaded' do
     enigma.crack("ipyqpkvstddzddawt!mmpgmfspmcpemyponc?krse", "2022-11-12")
     expect(enigma.class.included_modules).to include(Crack)
     expect(enigma.date).to eq("2022-11-12")
     enigma2 = Enigma.new
     enigma2.crack("ipyqpkvstddzddawt!mmpgmfspmcpemyponc?krse")
     expect(enigma2.date).to eq(Date.today.to_s)
-  end
-
-  it 'can find the last four characters of a message' do
-    enigma.crack("ipyqpkvstddzddawt!mmpgmfspmcpemyponc?krse", "2022-11-12")
-    expect(enigma.find_last_four).to eq("krse")
   end
 
   it 'can find the a shift' do

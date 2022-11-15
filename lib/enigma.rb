@@ -8,11 +8,8 @@ class Enigma
   attr_reader :date, :key, :new_message
 
   def encrypt(message, key = new_key, date = Date.today.to_s)
-    @key = key 
-    @date = date.to_s
-    new_message = encrypt_message(message, @key, @date)
     { 
-      :encryption => new_message,
+      :encryption => encrypt_message(message, key, date.to_s),
       :key        => key,
       :date       => Date.parse(date).strftime('%d%m%y')
     }
@@ -25,11 +22,8 @@ class Enigma
   end
 
   def decrypt(message, key = new_key, date = Date.today.to_s)
-    @key = key
-    @date = date.to_s
-    new_message = decrypt_message(message, @key, @date)
     { 
-      :decryption => new_message,
+      :decryption => decrypt_message(message, key, date.to_s),
       :key        => key,
       :date       => Date.parse(date).strftime('%d%m%y')
     }
