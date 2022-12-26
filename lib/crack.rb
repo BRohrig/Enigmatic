@@ -124,7 +124,6 @@ module Crack
       @letters.index(@message[find_d_shift_position]) -3
     end
   end
-    
 
   def find_a_subkeys
     multiple = (find_a_shift-(create_offset[0].to_i)) % 27

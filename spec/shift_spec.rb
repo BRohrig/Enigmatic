@@ -1,8 +1,10 @@
 require './lib/shift'
+require './lib/enigma'
 require 'date'
 
 RSpec.describe Shift do
   let(:enigma) {Enigma.new}
+
   it 'is a shift and has attributes' do
     allow(enigma).to receive(:key) {"54321"}
     expect(enigma.key).to eq("54321")

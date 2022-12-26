@@ -1,4 +1,4 @@
-require_relative './lib/encrypter'
+require_relative './lib/cryptofile'
 
 crypto = CryptoFile.new("crack")
 crypto.write_it
